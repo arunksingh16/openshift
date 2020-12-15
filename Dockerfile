@@ -1,11 +1,7 @@
-# This is the Dockerfile for
-# Pull base image
-FROM centos:latest
-# Maintainer
-MAINTAINER Arun K Singh
-# Install HTTPD
-RUN yum -y install httpd
-# Copy INDEX.HTML in apache installed location
-COPY index.html /var/www/html/
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
-EXPOSE 80
+FROM python:3.6
+COPY . /app
+WORKDIR /app
+RUN pip install -r requirements.txt
+EXPOSE 8080
+ENTRYPOINT ["python"]
+CMD ["app/app.py"]
